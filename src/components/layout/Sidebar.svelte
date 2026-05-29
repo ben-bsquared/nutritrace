@@ -128,13 +128,17 @@
           <div class="user-info">
             <span class="user-name">{$currentUser.full_name || $currentUser.username}</span>
             <span class="sidebar-version">{APP_VERSION}</span>
+            <span class="fork-note">Fork maintained by @ben-bsquared</span>
           </div>
           <button class="btn-icon logout-btn" on:click={handleLogout} title={$_('common.sign_out')} aria-label={$_('common.sign_out')}>
             <span class="material-symbols-rounded">logout</span>
           </button>
         </div>
       {:else}
-        <span class="sidebar-version">{APP_VERSION}</span>
+        <div class="sidebar-meta">
+          <span class="sidebar-version">{APP_VERSION}</span>
+          <span class="fork-note">Fork maintained by @ben-bsquared</span>
+        </div>
       {/if}
     </div>
   </aside>
@@ -258,7 +262,14 @@
     align-items: center;
     justify-content: flex-end;
   }
+  .sidebar-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
   .sidebar-version { font-size: 11px; color: var(--text-3); }
+  .fork-note { font-size: 10px; color: var(--text-3); }
 
   .sidebar-user {
     display: flex;
