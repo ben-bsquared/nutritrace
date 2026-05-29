@@ -501,6 +501,15 @@
     _newContName = ''; _newContVolume = '';
   }
   function removeContainer(id) { waterContainers.set($waterContainers.filter(c => c.id !== id)); }
+  function moveContainer(id, direction) {
+    const idx = $waterContainers.findIndex(c => c.id === id);
+    if (idx < 0) return;
+    const target = direction === 'up' ? idx - 1 : idx + 1;
+    if (target < 0 || target >= $waterContainers.length) return;
+    const next = [...$waterContainers];
+    [next[idx], next[target]] = [next[target], next[idx]];
+    waterContainers.set(next);
+  }
 
   // ── Statistics ─────────────────────────────────────────────────────────────
   let statsChartType = DB.getSetting('statsChartType', 'bar');
@@ -2066,9 +2075,17 @@
                   <div class="setting-desc">{_mlToDisplay(container.volumeMl, $waterUnit)} {$waterUnit}</div>
                 </div>
               </div>
-              <button class="btn-icon" on:click={() => removeContainer(container.id)} title="Remove">
-                <span class="material-symbols-rounded" style="font-size:18px;color:var(--text-3)">delete</span>
-              </button>
+              <div style="display:flex;align-items:center;gap:4px">
+                <button class="btn-icon" on:click={() => moveContainer(container.id, 'up')} title="Move Up" disabled={i === 0}>
+                  <span class="material-symbols-rounded" style="font-size:18px;color:var(--text-3)">arrow_upward</span>
+                </button>
+                <button class="btn-icon" on:click={() => moveContainer(container.id, 'down')} title="Move Down" disabled={i === $waterContainers.length - 1}>
+                  <span class="material-symbols-rounded" style="font-size:18px;color:var(--text-3)">arrow_downward</span>
+                </button>
+                <button class="btn-icon" on:click={() => removeContainer(container.id)} title="Remove">
+                  <span class="material-symbols-rounded" style="font-size:18px;color:var(--text-3)">delete</span>
+                </button>
+              </div>
             </div>
           {/each}
           {#if $waterContainers.length === 0}
