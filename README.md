@@ -2,6 +2,8 @@
 
 **Trace Every Bite** — A self-hosted personal nutrition tracker built for privacy and full data ownership.
 
+> Fork maintained by **@ben-bsquared**.
+
 NutriTrace runs as a single Docker container on your own hardware, with a PWA for the browser and a native Android app for your phone. No accounts on external services, no data leaving your network, no subscriptions.
 
 ---
